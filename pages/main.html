@@ -1,0 +1,175 @@
+<!-- MAIN PAGE : LISTING ALL HOTELS AND SEARCHIN PART -->
+<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+<link href="./css/hotelCards.css" rel="stylesheet">
+<style>
+    .search-query input{
+        font-size : 170%;
+        color : #c2c2c2;
+    }
+    h4{
+        font-family: 'Poiret One', cursive;
+        font-size : 230%;
+        margin-top:30px;
+        margin-bottom:20px;
+    }
+    .filter-tag{
+        color : #000000;
+        cursor: pointer;
+        border : 1px solid #000;
+        border-radius: 5px;
+        padding : 3px 15px;
+        display: inline-block;
+        margin : 10px 5px !important;
+        transition: all .3s;
+        font-size:85%;
+    }
+    .filter-tag:hover{
+        background-color : #1b1b1b;
+        color : #fff;
+    }
+    .filter-tag.active{
+        background-color : #1b1b1b;
+        color : #fff;
+    }
+ 
+</style>
+
+<div class="container" style="width:1000px;">
+    <div class="row card z-depth-2">
+        <div class='col m12'>
+            <div class='col m12 center'><h4>Book Hotels with ease</h4></div>
+            <form class="col s12">
+                <div class="col s12 m8 offset-m2 valign-wrapper">
+                    <div class="input-field col s9 m10 l11 search-query">
+                        <input name='search-query' id="search" class='autotype' type="text" ng-model="requestData.query"> </div>
+                    <div class='col s3 m2 l1 center'>
+                        <button name='search-btn' id='search' class="waves-effect waves-light btn z-depth-2 purple" ng-click="searchByName()"><i class="material-icons" style="margin-right:0px;">search</i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col m12">
+            <div class="col m12 center" style="margin-top:15px;">OR</div> 
+            <div class="col m12 center" style="margin-top:20px; margin-bottom:30px;"><button class="waves-effect waves-light btn z-depth-2 purple" ng-click="getLocation()"><i class="material-icons">language</i><span>FIND HOTELS NEAR ME</span></button></div> 
+        </div>
+    </div>
+    
+    <div class="row hotels-result" style="margin-top:40px;" >
+        
+        <!-- FILTERS -->
+        <div class="col m12" style="margin-bottom:20px;" >
+            <div class='col m12 filters'>
+                <span style="margin-right:20px; font-size:80%; text-transform:uppercase; letter-spacing:1px;">Filter : </span>
+                <span class='filter-tag' ng-class="{ active : filterNum == 1}" ng-click="setFilter(1)">Most Affordable</span>
+                <span class='filter-tag' ng-class="{ active : filterNum == 2}" ng-click="setFilter(2)">Top Rated</span>
+            </div>
+        </div>
+        
+        <!-- REPEAT THESE CARDS -->
+<!--
+        <div class="col s12 m6 l4 card-holder">
+            <div class="col s12 m12 card z-depth-1">
+                <div class="col s12 m12 rest-pic center"><img src="./images/header2.jpg"></div>
+                <div class="col s12 m12 valign-wrapper add-margin">
+                    <div class="col s10 l9 rest-name"><h6>Golden Tulip</h6></div>
+                    <div class="col s2 l3 rest-rating ">
+                        <div class="rating-badge good-rating center z-depth-1">
+                            <span id="rest-rating" class="rating-value">4.3</span><span class="caption">/5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col s12 m12 rest-info'>
+                    <div class='col s12 l12 rest-address'><i class='material-icons'>location_on</i>Ichchanath, Dumas Road, Surat, Gujarat</div>
+                    <div class='col s12 l12'><i class='material-icons'>credit_card</i>&#8377;1000 onwards</div>
+                </div>
+                <div class="col s12 m12 center" style="margin-top:5px; margin-bottom:10px;">
+                    <a href="#/hotel" class="waves-effect waves-light btn z-depth-1 hoverable purple">Book Now</a>
+                </div>
+            </div>
+        </div>
+-->
+        
+        <!-- REPEAT THESE CARDS -->
+        <div class="col s12 m6 l4 card-holder" ng-repeat="hotel in hotels ">
+            <div class="col s12 m12 card z-depth-1">
+                <div class="col s12 m12 rest-pic center"><img></div>
+                <div class="col s12 m12 valign-wrapper add-margin">
+                    <div class="col s10 l9 rest-name"><h6>{{hotel.name}}</h6></div>
+                    <div class="col s2 l3 rest-rating ">
+                        <div class="rating-badge good-rating center z-depth-1">
+                            <span id="rest-rating" class="rating-value">{{hotel.rat_avg}}</span><span class="caption">/5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class='col s12 m12 rest-info'>
+                    <div class='col s12 l12 rest-address'><i class='material-icons'>location_on</i>{{hotel.address}}</div>
+                    <div class='col s12 l12'><i class='material-icons'>credit_card</i>&#8377;{{hotel.cost}} onwards</div>
+                </div>
+                <div class="col s12 m12 center" style="margin-top:5px; margin-bottom:10px;">
+                    <a href="#/hotel" class="waves-effect waves-light btn z-depth-1 hoverable purple" ng-click="setHotelId(hotel.id)">Book Now</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+</div>
+
+
+
+
+<script src="./js/typed.js"></script>
+<script>
+
+// TYPING EFFECT
+$(function () {
+    $(".autotype").typed({
+        strings: ["Search hotels by name", 'Or by location']
+        , typeSpeed: 80
+        , startDelay: 100
+        , loop: true
+        , backDelay: 1000
+        , backspeed: 80
+    });
+});
+// STOP TYPING EFFECT WHEN ON FOCUS
+$('.autotype').focusin(function () {
+    $(this).typed({
+        strings: ['']
+    });
+    $(this).val('');
+});
+// RESTART THE TYPING EFFCT AFTER 3s 
+$('.autotype').focusout(function () {
+    setTimeout(function () {
+        if ($('.autotype').val() == '') { // check if no string
+            $(".autotype").typed({
+                strings: ["Search hotels by name", 'Or by location']
+                , typeSpeed: 50
+                , startDelay: 100
+                , loop: true
+                , backDelay: 1000
+                , backspeed: 500
+            });
+        }
+    }, 3000)
+});
+    
+// RATING BADGE
+$('.card').each(function(index){
+    var rating = parseFloat($(this).find('.rating-value').text());
+
+    if ( rating >= 2 && rating < 4 ){
+        $(this).find('.rating-badge').removeClass('good-rating');
+        $(this).find('.rating-badge').addClass('med-rating');
+    }
+    else if (rating < 2){
+        $(this).find('.rating-badge').removeClass('good-rating');
+        $(this).find('.rating-badge').addClass('bad-rating');
+    }
+
+});
+
+
+</script>

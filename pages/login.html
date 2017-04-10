@@ -1,0 +1,96 @@
+<!-- LOGIN / REGISTER PAGE -->
+
+<style>
+    .tabs .tab a{
+        font-size : 100%;
+    }
+    
+</style>
+
+
+
+<div class="container">
+    <div class="row ">
+         <!-- login or signup markup -->
+        <div class="col s12 tabs-col" style="margin-bottom:20px;">
+            <ul class="tabs">
+                <li class="tab col s6 z-depth-1"><a class="active" href="#login-form">Login</a></li>
+                <li class="tab col s6 z-depth-1"><a href="#signup-form">Register</a></li>
+            </ul>
+        </div>
+        <!-- LOGIN -->
+        <div class="col s12 m12 l12" >
+        <div class="row">
+            <form id="login-form" name='login' class="col s12" ng-controller="loginController" ng-submit="login.$valid && loginSubmit()" novalidate>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" class="validate" autocomplete="email" ng-model="data.email" required>
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="password" name="password" class="validate" ng-model="data.password" required>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class='col s12 l12 center' style="margin-top:10px;">
+                    <button name='submit' id='login-btn' class="submit waves-effect waves-light btn z-depth-2 purple">Login</button>
+                </div>
+                <div class='col s12 l12 center'>
+                    <p class='center' style="font-size:90%;">{{msg}}</p>
+                </div>
+            </form>
+        </div>
+        </div>
+        <!-- SIGNUP -->
+        <div class="col s12 l12">
+        <div class="row">
+            <form  id="signup-form" name='signup' class="col s12" ng-controller="registerController" ng-click="signup.$valid && registerSubmit()" novalidate>
+                <!--do email validation in php-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input name='username' type="text" class="validate" autocomplete='name' required ng-model="data.fullName">
+                        <label for="username">Full Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" name="email" class="validate" autocomplete="email" required ng-model="data.email">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="password" name='password' class="validate" required ng-model="data.password">
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="password" name="cnf-password" class="validate" required ng-model="data.confirm">
+                        <label for="cnf-password">Confirm Password</label>
+                    </div>
+                </div>
+                <div class='col s12 l12 center' style="margin-top:10px;">
+                    <button name='submit' id=' signup' class=" submit waves-effect waves-light btn z-depth-2 purple">Register</button>
+                </div>
+                <div class='col s12 l12 center'>
+                    <p class='center' style="font-size:90%;">{{msg}}</p>
+                </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    
+     
+</div>
+
+
+<script>
+// WHEN DOC READY
+$(document).ready(function () {
+    // FOR SELECTING TABS
+    $('ul.tabs').tabs();
+});
+</script>

@@ -1,0 +1,137 @@
+<!-- HOTEL DETAILS PAGE -->
+<link rel="stylesheet" href="./css/details.css">
+<script src="./js/stars.js"></script>
+
+
+<!-- START WORKING FROM HERE --> 
+<div class="container" style="width:1000px;">
+    <header>
+    <div class='row jumbo'>
+        <div class='col s12 parallax-container'>
+            <div class='col s12 parallax'>
+                <img id='rest-img' src="./images/header2.jpg">
+
+
+                <div class='text valign-wrapper'>
+                    <div class='col s12 l8 info-set-1'>
+                        <h2> {{hotelDetails.name}} </h2>
+                        <h5 class='valign-wrapper'><i class='material-icons'>location_on</i> {{hotelDetails.address}}</h5>
+                        <h5 class='valign-wrapper'><i class='material-icons'>stay_current_portrait</i>{{hotelDetails.contact}}</h5>
+                    </div>
+                    <div class='col s12 l4 info-set-2'>
+                        <h5 class='valign-wrapper center'> <span class='rating-disp z-depth-4 valign-wrapper'><span>{{hotelDetails.rat_avg}}</span><span><i class='material-icons center'>&nbsp;star</i></span></span></h5>
+                        <h5 class="valign-wrapper"><i class='material-icons'>credit_card</i><span>&#8377;{{hotelDetails.cost}} onwards</span></h5>
+<!--
+                        <h5 class='valign-wrapper'><i class='material-icons'>query_builder</i> <span>09:00:00</span><span>&nbsp;-&nbsp; </span><span>23:00:00</span></h5>
+                        <h5 class='valign-wrapper'><i class='material-icons'>local_dining</i>Continental</h5>
+                        <h5 class='valign-wrapper'><i class='material-icons'>local_dining</i> Non-Veg</h5>
+-->
+
+
+                    </div>
+                </div>
+           </div>   
+        </div>
+    </div>
+    </header>
+
+    <main>
+    <div class='left-container'>
+        <!-- HIDE ADD REVIEW SECTION IF NOT LOGGED IN -->
+        <div class='row add-reviews' ng-show="checkLoggedIn()">
+            <h3>Add review</h3>
+
+            <div class='col s12 m12 l10 offset-l1'>
+            <form name='addReviewForm' id='new-review' class="col s12" novalidate ng-submit="addReviewForm.$valid &&  addReview()">
+            <!-- STARS HERE -->
+            <!-- READ CAREFULLY : WHEN CLICKING ON A STAR, THE CORRESPONDING VALUE IS STORED IN THE HIDDEN INPUT ELEMENT WITH NAME RATING...SO WHEN FORM IS SUBMITTED, $_POST['rating'] WILL GIVE THE RATING -->
+            <div class='row'>
+              <div class='col s12'>
+                    <input name='rating' id='rating' type="hidden" value='1' ng-model="newReview.rating">
+                    <div class='star-row'>
+                        <span><p>Add your rating :</p></span>                                   
+                        <span class='star' data-value='1' ng-click="newReview.rating=1"><i class='material-icons'>star</i></span>
+                        <span class='star' data-value='2' ng-click="newReview.rating=2"><i class='material-icons'>star</i></span>
+                        <span class='star' data-value='3' ng-click="newReview.rating=3"><i class='material-icons'>star</i></span>
+                        <span class='star' data-value='4' ng-click="newReview.rating=4"><i class='material-icons'>star</i></span>
+                        <span class='star' data-value='5' ng-click="newReview.rating=5"><i class='material-icons'>star</i></span>
+                    </div>
+              </div>
+            </div>
+
+             <div class="row">
+                <div class="input-field col s12">
+                  <textarea id='review' name='review' class='materialize-textarea' ng-model="newReview.text" required></textarea>
+                  <label for="review">Enter your review here</label>
+                </div>
+              </div>
+              
+              <div class='col s12 l12 center'><button class="waves-effect waves-light btn z-depth-2 black-btn">Submit</button></div>
+
+
+            </form>
+            </div>
+        </div>
+
+        <!-- ALL REVIEWS SECTION -->  
+        <div class='row reviews'>
+           <h3>User reviews</h3>
+
+           <!-- repeat the following markup for reviews -->
+           <div class='col s12 user-review card hoverable' ng-repeat="review in reviews"><div class='col s12 valign-wrapper'><span><i class='material-icons'>perm_identity</i></span><span id='user-name'>{{review.name}}</span></div>  <div id='review-content' class='col s12'>{{review.review_text}}</div>  </div>			   <!-- ........repeat till here..............  -->
+
+        </div>
+    </div>
+
+    <div class='right-container'>
+        <div class="col s12" style="margin-top:30px; font-size:85%;">
+            <table>
+                <th class="center">Room Type</th>
+                <th class="center">Total Rooms</th>
+                <th class="center">Rate</th>
+                <tr>
+                    <td class="center">Single Bed</td>
+                    <td class="center">{{hotelDetails.totalSB}}</td>
+                    <td class="center">&#8377; {{hotelDetails.cost}}</td>
+                </tr>
+                <tr>
+                    <td class="center">Double Bed</td>
+                    <td class="center">{{hotelDetails.totalDB}}</td>
+                    <td class="center">&#8377; {{hotelDetails.cost * 1.5}} </td>
+                </tr>
+                <tr>
+                    <td class="center">Family</td>
+                    <td class="center">{{hotelDetails.totalFR}}</td>
+                    <td class="center">&#8377; {{hotelDetails.cost * 2}}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class='col s12 center' ng-show="checkLoggedIn()">
+           <a href="#/booking" name='menu-btn' class="waves-effect waves-light btn modal-trigger z-depth-1 menu-btn">Book Now</a>
+       </div>
+    </div>
+
+    <!-- CODE FOR HIDING ADD REVIEW SECTION -->
+<!--
+                <script type="text/javascript">
+           $('.add-reviews').empty();
+           $('.add-reviews').append("<h3>Add review</h3>");
+           $('.add-reviews').append("<div class='col s12 center'><p class='muted-text'>Please login or register to write a review </p></div>");
+           $('#rsrv-btn').addClass('disabled');
+           $('#rsrv-btn').addClass('rsrv-btn');
+
+        </script>
+-->
+
+    </main>
+</div>	
+
+
+<script>
+// WHEN DOC READY
+$(document).ready(function () {
+    $('.parallax').parallax();
+
+});
+</script>

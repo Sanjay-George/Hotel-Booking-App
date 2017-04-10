@@ -1,0 +1,153 @@
+<!-- HOTEL DETAILS PAGE -->
+<link rel="stylesheet" href="./css/datetimepicker.css">
+<link rel="stylesheet" href="./css/details.css">
+<style>
+    clabel{
+        font-size : 85%;
+    }
+</style>
+
+
+<!-- START WORKING FROM HERE --> 
+<div class="container" style="width:1000px;">
+    <header>
+    <div class='row jumbo'>
+        <div class='col s12 parallax-container'>
+            <div class='col s12 parallax'>
+                <img id='rest-img' src="./images/header2.jpg">
+
+
+                <div class='text valign-wrapper'>
+                    <div class='col s12 l8 info-set-1'>
+                        <h2>{{hotelDetails.name}}</h2>
+                        <h5 class='valign-wrapper'><i class='material-icons'>location_on</i> {{hotelDetails.address}}</h5>
+                        <h5 class='valign-wrapper'><i class='material-icons'>stay_current_portrait</i>{{hotelDetails.contact}}</h5>
+                    </div>
+                    <div class='col s12 l4 info-set-2'>
+                        <h5 class='valign-wrapper center'> <span class='rating-disp z-depth-4 valign-wrapper'><span>{{hotelDetails.rat_avg}} </span><span><i class='material-icons center'>&nbsp;star</i></span></span></h5>
+                        <h5 class="valign-wrapper"><i class='material-icons'>credit_card</i><span>&#8377;{{hotelDetails.cost}} onwards</span></h5>
+
+                    </div>
+                </div>
+           </div>   
+        </div>
+    </div>
+    </header>
+    
+    <main>
+    <div class="row">
+        <!-- select date range : show available rooms
+            select room type 
+            number of rooms : max = avail rooms -->
+        <!-- date range select form -->
+        <form name="bookingDates"  class="col l12" style="margin-top:50px;" ng-submit="bookingDates.$valid && getAvailableRooms()" novalidate>    
+             <div class='col l6 valign-wrapper'>
+                <div class='col s6'>
+                    <clabel>Check In :</clabel>
+                </div>
+                <div class='col s6'>
+                    <div class="form-control-wrapper">
+                        <input name='date' type="text" class="form-control floating-label date" placeholder="Date" required ng-model="bookingDetails.start">
+                    </div>
+                </div>
+            </div>
+            <div class='col l6 valign-wrapper'>
+                <div class='col s6'>
+                    <clabel>Check Out :</clabel>
+                </div>
+                <div class='col s6'>
+                    <div class="form-control-wrapper">
+                        <input name='date' type="text" class="form-control floating-label date" placeholder="Date" required ng-model="bookingDetails.end"> 
+                    </div>
+                </div>
+            </div>
+            <div class='col s12 center'>
+               <button class="waves-effect waves-light btn modal-trigger z-depth-1 menu-btn" style="margin-top:0px;">Check Availability</button>
+           </div>
+        </form>  
+        
+        <div class="col l10 offset-l1" style="margin-top:50px; border:1px solid black;" ng-show="detailsFetched == true">
+            <table style="font-size:85%;">
+                <th class="center">Room Type</th>
+                <th class="center">Total Rooms</th>
+                <th class="center">Rooms Available</th>
+                <th class="center">Rate</th>
+                <tr>
+                    <td class="center">Single Bed</td>
+                    <td class="center">{{hotelDetails.totalSB}}</td>
+                    <td class="center">{{hotelDetails.availSB }}</td>
+                    <td class="center">&#8377; {{hotelDetails.cost}}</td>
+                </tr>
+                <tr>
+                    <td class="center">Double Bed</td>
+                    <td class="center">{{hotelDetails.totalDB}}</td>
+                    <td class="center">{{hotelDetails.availDB}} </td>
+                    <td class="center">&#8377; {{hotelDetails.cost * 1.5}}</td>
+                </tr>
+                <tr>
+                    <td class="center">Family</td>
+                    <td class="center">{{hotelDetails.totalFR}}</td>
+                    <td class="center">{{hotelDetails.availFR}}</td>
+                    <td class="center">&#8377; {{hotelDetails.cost * 2}} </td>
+                </tr>
+            </table>
+        </div>
+        
+        <form name="bookRoomsForm" class="col l10 offset-l1" style="margin-top:50px;" ng-show="detailsFetched == true" ng-submit="bookRooms()">
+
+        
+             <table style="font-size:85%;">
+                <th class="center">Single Bed Rooms</th>
+                <th class="center">Double Bed Rooms</th>
+                <th class="center">Family Rooms</th>
+                <tr>
+                    <td class="center">
+                        <input type="number" placeholder="Select number" style="width:200px;" ng-model="bookingDetails.single">
+                    </td>
+                    <td class="center">                        
+                        <input type="number" placeholder="Select number" style="width:200px;" ng-model="bookingDetails.double">
+                    </td>
+                    <td class="center">
+                        <input type="number" placeholder="Select number" style="width:200px;" ng-model="bookingDetails.family">
+                    </td>
+                </tr>
+               
+            </table>
+            
+            
+            <div class='col s12 center'>
+               <button class="waves-effect waves-light btn modal-trigger z-depth-1 menu-btn" style="margin-top:0px;">Confirm Booking</button>
+           </div>
+            
+        </form>
+        
+    </div>
+    
+    </main>
+
+    
+</div>	
+
+<script src="./js/moment.min.js"></script>
+<script src="./js/datetimepicker.js"></script>
+<script>
+// WHEN DOC READY
+$(document).ready(function () {
+    
+    // TIME OR DATE PICKER
+    $('.date').bootstrapMaterialDatePicker
+    ({
+        time: false,
+        clearButton: false,
+        format : 'YYYY-MM-DD'
+    });
+    $('.date').bootstrapMaterialDatePicker('setDate', moment());
+    $('.date').bootstrapMaterialDatePicker('setMinDate', moment());
+    
+    
+    // INITIALIZE PLUGINS
+    $('.parallax').parallax();
+    $('select').material_select();
+
+});
+</script>

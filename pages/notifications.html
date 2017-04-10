@@ -1,0 +1,63 @@
+<!-- HOTEL DETAILS PAGE -->
+<link rel="stylesheet" href="./css/datetimepicker.css">
+<link rel="stylesheet" href="./css/details.css">
+<style>
+    clabel{
+        font-size : 85%;
+    }
+</style>
+
+
+<!-- START WORKING FROM HERE --> 
+<div class="container" style="width:1000px;">
+    <main>
+    <div class="row">
+        <div class="col l12" style="margin-top:50px;" >
+            <table style="font-size:85%;">
+                <th class="center">Hotel Name</th>
+                <th class="center">Check In</th>
+                <th class="center">Check Out</th>
+                <th class="center">Single Bed Rooms</th>
+                <th class="center">Double Bed Rooms</th>
+                <th class="center">Family Rooms</th>
+                
+                <!-- repeat this -->
+                <tr ng-repeat="notif in notifications">
+                    <td class="center">{{notif.name}}</td>
+                    <td class="center">{{notif.startDate}}</td>
+                    <td class="center">{{notif.endDate}}</td>
+                    <td class="center">{{notif.singleBR}}</td>
+                    <td class="center">{{notif.doubleBR}}</td>
+                    <td class="center">{{notif.familyBR}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </main>
+
+    
+</div>	
+
+<script src="./js/moment.min.js"></script>
+<script src="./js/datetimepicker.js"></script>
+<script>
+// WHEN DOC READY
+$(document).ready(function () {
+    
+    // TIME OR DATE PICKER
+    $('.date').bootstrapMaterialDatePicker
+    ({
+        time: false,
+        clearButton: false,
+        format : 'YYYY-MM-DD'
+    });
+    $('.date').bootstrapMaterialDatePicker('setDate', moment());
+    $('.date').bootstrapMaterialDatePicker('setMinDate', moment());
+    
+    
+    // INITIALIZE PLUGINS
+    $('.parallax').parallax();
+    $('select').material_select();
+
+});
+</script>

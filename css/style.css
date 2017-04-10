@@ -1,0 +1,44 @@
+*{
+/*    outline: 1px solid red;*/
+}
+body{
+    font-size : 17px;
+}
+nav{
+    position: fixed;
+    left:0px;
+    top:0px;
+    z-index:9999;
+}
+nav .brand-logo{
+    font-size: 170%;
+    font-weight: 400;
+    letter-spacing: 1px;
+    padding-left:20px;
+}
+.container{
+    height:100vh; 
+/*    display: flex;*/
+/*    align-items: center;*/
+    padding-top : 50px;
+}
+.container .row{
+    width:100%;
+    margin:0px;
+}
+
+button .material-icons{
+    font-size : 120%;
+    margin-right:10px;
+}
+.btn{
+    font-size : 90%;
+}
+button span{
+    position: relative;
+    top: -4px;
+}
+.purple{
+    background-color : #1a237e !important;
+}
+
